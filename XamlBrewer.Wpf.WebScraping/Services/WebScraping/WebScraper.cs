@@ -30,7 +30,7 @@ namespace XamlBrewer.Services.WebScraping
 
                 foreach (var script in scripts)
                 {
-                    var parsed = Eval(script, html);
+                    var parsed = Execute(script, html);
                     result.Add(script.Field, parsed);
                 }
             }
@@ -67,22 +67,21 @@ namespace XamlBrewer.Services.WebScraping
 
             var request = (HttpWebRequest)WebRequest.Create(url);
 
-            // Some sites requires cookies.
+            request.Timeout = timeout;
+            request.Method = "GET";
+            
+            // Some sites require cookies.
             CookieContainer cookieContainer = new CookieContainer();
             request.CookieContainer = cookieContainer;
 
-            request.Timeout = timeout;
-            request.Method = "GET";
-            request.Headers.Add(HttpRequestHeader.AcceptCharset, "UTF-8");
-
-            //request.AllowAutoRedirect = false;
-            
             // Makes the request look like it comes from a real browser.
             request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)";
 
-            //request.Accept = "text/html,application/xhtml+xml,application/xml";
-            //request.Headers.Add("Accept-Language", "en-US");
-
+            // Some other settings I tried, but don't seem to make any difference:
+            // request.Headers.Add(HttpRequestHeader.AcceptCharset, "UTF-8");
+            // request.AllowAutoRedirect = false;
+            // request.Accept = "text/html,application/xhtml+xml,application/xml";
+            // request.Headers.Add("Accept-Language", "en-US");
             // request.ContentType = "text/plain";
 
             using (var webResponse = (HttpWebResponse)request.GetResponse())
@@ -130,7 +129,8 @@ namespace XamlBrewer.Services.WebScraping
                     }
                     catch (Exception)
                     {
-                        // Something went wrong (e.g. invalid charset). Keep the first result.
+                        // Something went wrong (e.g. invalid charset).
+                        // We'll keep the result from the initial call.
                     }
                 }
             }
@@ -160,25 +160,32 @@ namespace XamlBrewer.Services.WebScraping
             // Decode the remaining.
             htmlString = WebUtility.HtmlDecode(htmlString);
 
+            // Trim the result.
             return htmlString.Trim();
         }
 
-        private string Eval(Script script, string html)
+        /// <summary>
+        /// Executes a full scraping script against a source.
+        /// </summary>
+        private string Execute(Script script, string html)
         {
             CQ result = html;
 
             foreach (var step in script.Steps)
             {
-                result = Eval(step, result);
+                result = Execute(step, result);
             }
 
             return Html2Text(result.RenderSelection());
         }
 
-        private CQ Eval(Step step, CQ html)
+        /// <summary>
+        /// Executes a single step of a scraping script against a source.
+        /// </summary>
+        private CQ Execute(Step step, CQ html)
         {
             string[] separators = { " " };
-            
+
             // Multiple filters can be combined with a space
             var filters = step.Filter.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
@@ -201,6 +208,7 @@ namespace XamlBrewer.Services.WebScraping
                     }
 
                     return html;
+                // Feel free to add extra actions here: regex, printf, ...
                 default:
                     return html;
             }

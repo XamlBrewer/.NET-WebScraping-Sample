@@ -113,7 +113,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\360x3360.png" />
+    <Resource Include="Assets\BigLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SmallLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

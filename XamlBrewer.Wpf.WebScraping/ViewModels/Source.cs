@@ -92,41 +92,29 @@ namespace XamlBrewer.Wpf.WebScraping
                                 Url="http://empirenews.net/scientists-prove-plants-flowers-capable-of-feeling-severe-pain/",
                                 Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='.entry-content' /><Step Action='remove' Filter='#top_share_widget' /></Steps></Script></Scripts>"
                             },
-                        new Source()
+                       new Source()
                             {
-                                Name="BBC 1",
-                                Url="http://www.bbc.co.uk/news/world-middle-east-34410720#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa",
-                                Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='div[property=articleBody]&lt;p' /><Step Action='remove' Filter='figure' /></Steps></Script></Scripts>"
+                                Name="Your News Wire 1",
+                                Url="http://yournewswire.com/report-more-selfie-related-deaths-than-shark-attacks-in-2015/",
+                                Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='.entry' /><Step Action='remove' Filter='.insert-post-ads .abh_box' /></Steps></Script></Scripts>"
                             },
-                        new Source()
+                       new Source()
                             {
-                                Name="BBC 2",
-                                Url="http://www.bbc.co.uk/news/world-asia-34409343#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa",
-                                Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='div[property=articleBody]&lt;p' /><Step Action='remove' Filter='figure' /></Steps></Script></Scripts>"
+                                Name="Your News Wire 2",
+                                Url="http://yournewswire.com/huge-container-ship-disappears-in-bermuda-triangle/",
+                                Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='.entry' /><Step Action='remove' Filter='.insert-post-ads .abh_box' /></Steps></Script></Scripts>"
                             },
-                      new Source()
+                       new Source()
                             {
-                                Name="CNN 1",
-                                Url="http://edition.cnn.com/2015/09/28/us/mars-nasa-announcement/index.html",
-                                Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='.zn-body__paragraph' /></Steps></Script></Scripts>"
+                                Name="The Daily Currant 1",
+                                Url="http://dailycurrant.com/2014/12/18/scientists-genetically-engineer-cows-to-produce-orange-juice/",
+                                Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='.entry' /><Step Action='remove' Filter='aside .fbbar' /></Steps></Script></Scripts>"
                             },
-                        new Source()
+                       new Source()
                             {
-                                Name="CNN 2",
-                                Url="http://edition.cnn.com/2015/09/28/travel/insider-guide-kyoto/index.html?eref=edition",
-                                Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='.zn-body__paragraph' /></Steps></Script></Scripts>"
-                            },
-                        new Source()
-                            {
-                                Name="The New York Times 1",
-                                Url="http://www.nytimes.com/2015/10/02/world/asia/kunduz-taliban-afghanistan.html?partner=rss&emc=rss&_r=0",
-                                Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='.story-body-text' /></Steps></Script></Scripts>"
-                            },
-                        new Source()
-                            {
-                                Name="The New York Times 2",
-                                Url="http://www.nytimes.com/2015/10/01/realestate/manhattan-apartment-prices-near-million-dollar-mark-reports-say.html?partner=rss&emc=rss",
-                                Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='.story-body-text' /></Steps></Script></Scripts>"
+                                Name="The Daily Currant 2",
+                                Url="http://dailycurrant.com/2013/07/01/nasa-finds-message-from-god-on-mars/",
+                                Scripts="<Scripts><Script Field='Content'><Steps><Step Action='select' Filter='.entry' /><Step Action='remove' Filter='aside .fbbar' /></Steps></Script></Scripts>"
                             }
                     };
             }

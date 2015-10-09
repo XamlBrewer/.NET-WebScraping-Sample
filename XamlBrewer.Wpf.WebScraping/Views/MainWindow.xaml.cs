@@ -35,9 +35,8 @@ namespace XamlBrewer.Wpf.WebScraping
         {
             var browser = sender as WebBrowser;
 
-            if (browser == null || browser.Document == null)
-                return;
-
+            if (browser?.Document == null) { return; }
+            
             HideScriptErrors(browser, true);
         }
 
@@ -52,31 +51,11 @@ namespace XamlBrewer.Wpf.WebScraping
 
         private void SourcesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.Cursor = Cursors.Wait;
-
             var source = SourcesList.SelectedItem as Source;
-            var scripts = WebScraper.DeserializeScripts(source.Scripts);
-            this.ScriptText.Text = scripts.First().Documentation;
+            this.UrlInput.Text = source.Url;
+            this.ScriptInput.Text = source.Scripts;
 
-            var engine = new WebScraper();
-            var target = engine.Run(source.Url, source.Scripts);
-            this.Text.Text = target.First().Value;
-
-            if (SourceCheckBox.IsChecked.Value)
-            {
-                try
-                {
-                    var html = WebScraper.FetchHtml(source.Url);
-                    this.SourceBrowser.NavigateToString(html);
-                }
-                catch (System.Exception)
-                {
-                    // Ignore.
-                    // Test the scraper's exception handling.
-                }
-            }
-
-            this.Cursor = Cursors.Arrow;
+            RunButton_Click(this, null); // Very un-MVVM :-)
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -99,36 +78,16 @@ namespace XamlBrewer.Wpf.WebScraping
             }
         }
 
-        private void CheckBox2_Checked(object sender, RoutedEventArgs e)
-        {
-            if (this.SourceBrowser2 == null)
-            {
-                return;
-            }
-
-            var box = sender as CheckBox;
-            if (box.IsChecked.Value)
-            {
-                this.SourceBrowser2.Visibility = System.Windows.Visibility.Visible;
-                this.BrowserColumn2.Width = new GridLength(1, GridUnitType.Star);
-            }
-            else
-            {
-                this.SourceBrowser2.Visibility = System.Windows.Visibility.Collapsed;
-                this.BrowserColumn2.Width = new GridLength(0);
-            }
-        }
-
         private void FetchButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 var html = WebScraper.FetchHtml(UrlInput.Text);
-                this.SourceBrowser2.NavigateToString(html);
+                this.SourceBrowser.NavigateToString(html);
             }
             catch (System.Exception ex)
             {
-                this.SourceBrowser2.NavigateToString(ex.Message);
+                this.SourceBrowser.NavigateToString(ex.Message);
             }
         }
 
@@ -136,26 +95,24 @@ namespace XamlBrewer.Wpf.WebScraping
         {
             this.Cursor = Cursors.Wait;
 
-            var source = SourcesList.SelectedItem as Source;
-            var xmlScripts = "<Scripts>" + ScriptInput.Text + "</Scripts>";
+            var xmlScripts = ScriptInput.Text;
             var scripts = WebScraper.DeserializeScripts(xmlScripts);
-            this.ScriptText2.Text = scripts.First().Documentation;
+            this.ScriptText.Text = scripts.First().Documentation;
 
             var engine = new WebScraper();
             var target = engine.Run(UrlInput.Text, xmlScripts);
-            this.Text2.Text = target.First().Value;
+            this.Text.Text = target.First().Value;
 
-            if (SourceCheckBox2.IsChecked.Value)
+            if (SourceCheckBox.IsChecked.Value)
             {
                 try
                 {
                     var html = WebScraper.FetchHtml(UrlInput.Text);
-                    this.SourceBrowser2.NavigateToString(html);
+                    this.SourceBrowser.NavigateToString(html);
                 }
-                catch (System.Exception)
+                catch (System.Exception ex)
                 {
-                    // Ignore.
-                    // Test the scraper's exception handling.
+                    this.SourceBrowser.NavigateToString(ex.Message);
                 }
             }
 

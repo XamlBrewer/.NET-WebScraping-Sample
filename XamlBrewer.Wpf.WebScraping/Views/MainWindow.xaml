@@ -11,165 +11,116 @@
         Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
-    <TabControl Margin="20">
-        <TabItem Header="RSS Feed Demos">
-            <Grid Margin="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition x:Name="BrowserColumn"
-                                      Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <CheckBox x:Name="SourceCheckBox"
-                              Content="Display Source Page"
-                              Checked="CheckBox_Checked"
-                              Unchecked="CheckBox_Checked"
-                              IsChecked="True" />
-                    <ListView x:Name="SourcesList"
-                              SelectionChanged="SourcesList_SelectionChanged"
-                              Width="200"
-                              Grid.Row="1"
-                              Margin="0 10 10 10">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock FontWeight="Bold"
-                                           Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Image Source="/XamlBrewer.Wpf.WebScraping;component/Assets/360x3360.png"
-                           Stretch="Uniform"
-                           Width="200"
-                           Grid.Row="2"
-                           HorizontalAlignment="Left" />
-                </Grid>
-                <WebBrowser x:Name="SourceBrowser"
-                            Margin="0 0 5 0"
-                            Navigated="Browser_OnLoadCompleted"
-                            Grid.Column="1" />
-                <Grid Grid.Column="2"
-                      Margin="5 0 0 0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock x:Name="ScriptText"
-                               Foreground="{StaticResource PrimaryHueDarkBrush}"
-                               FontWeight="SemiBold"
-                               TextWrapping="Wrap"
-                               Margin="0 0 0 5" />
-                    <ScrollViewer Grid.Row="1">
-                        <TextBlock x:Name="Text"
-                                   Width="auto"
-                                   TextWrapping="Wrap" />
-                    </ScrollViewer>
-                </Grid>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Script Builder">
-            <Grid Margin="20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition x:Name="BrowserColumn2"
-                                      Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.ColumnSpan="3"
-                      Margin="0 0 0 20">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="URL"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               FontWeight="SemiBold" />
-                    <TextBox x:Name="UrlInput"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Stretch"
-                             Margin="5"
-                             Grid.Column="1" />
-                    <Button Content="Get"
-                            Click="FetchButton_Click"
-                            Margin="0 2"
-                            Grid.Column="2" />
-                    <TextBlock Text="Script"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               FontWeight="SemiBold"
-                               Grid.Row="1" />
-                    <TextBox x:Name="ScriptInput"
-                             Text="&lt;Script Field='Content'>&lt;Steps>&lt;Step Action='select' Filter='' />&lt;Step Action='remove' Filter='' />&lt;/Steps>&lt;/Script>"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Stretch"
-                             Margin="5"
-                             Grid.Column="1"
-                             Grid.Row="1" />
-                    <Button Content="Run"
-                            Click="RunButton_Click"
-                            Margin="0 2"
-                            Grid.Row="1"
-                            Grid.Column="2" />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <CheckBox x:Name="SourceCheckBox2"
-                              Content="Display Source Page"
-                              Checked="CheckBox2_Checked"
-                              Unchecked="CheckBox2_Checked"
-                              IsChecked="True" />
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Icon="/XamlBrewer.Wpf.WebScraping;component/Assets/SmallLogo.png">
 
-                    <Image Source="/XamlBrewer.Wpf.WebScraping;component/Assets/360x3360.png"
-                           Stretch="Uniform"
-                           Width="200"
-                           Grid.Row="2"
-                           HorizontalAlignment="Left"
-                           Margin="0 0 10 0" />
-                </Grid>
-                <WebBrowser x:Name="SourceBrowser2"
-                            Margin="0 0 5 0"
-                            Navigated="Browser_OnLoadCompleted"
-                            Grid.Row="1"
-                            Grid.Column="1" />
-                <Grid Grid.Row="1"
-                      Grid.Column="2"
-                      Margin="5 0 0 0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock x:Name="ScriptText2"
-                               Foreground="{StaticResource PrimaryHueDarkBrush}"
-                               FontWeight="SemiBold"
-                               TextWrapping="Wrap"
-                               Margin="0 0 0 5" />
-                    <ScrollViewer Grid.Row="1">
-                        <TextBlock x:Name="Text2"
-                                   Width="auto"
-                                   TextWrapping="Wrap" />
-                    </ScrollViewer>
-                </Grid>
-            </Grid>
-        </TabItem>
-    </TabControl>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition x:Name="BrowserColumn"
+                              Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="3"
+              Margin="0 0 0 20">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="URL"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold" />
+            <TextBox x:Name="UrlInput"
+                     TextWrapping="Wrap"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch"
+                     Margin="5"
+                     Grid.Column="1" />
+            <Button Content="Get"
+                    Click="FetchButton_Click"
+                    Margin="0 2"
+                    Grid.Column="2" />
+            <TextBlock Text="Script"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Grid.Row="1" />
+            <TextBox x:Name="ScriptInput"
+                     Text="&lt;Scripts>&lt;Script Field='Content'>&lt;Steps>&lt;Step Action='select' Filter='' />&lt;Step Action='remove' Filter='' />&lt;/Steps>&lt;/Script>&lt;Scripts>"
+                     TextWrapping="Wrap"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch"
+                     Margin="5"
+                     Grid.Column="1"
+                     Grid.Row="1" />
+            <Button Content="Run"
+                    Click="RunButton_Click"
+                    Margin="0 2"
+                    Grid.Row="1"
+                    Grid.Column="2" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <CheckBox x:Name="SourceCheckBox"
+                      Content="Display Source Page"
+                      Checked="CheckBox_Checked"
+                      Unchecked="CheckBox_Checked"
+                      IsChecked="True" />
+            <ListView x:Name="SourcesList"
+                      SelectionChanged="SourcesList_SelectionChanged"
+                      Width="200"
+                      Grid.Row="1"
+                      Margin="0 10 10 10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontWeight="Bold"
+                                   Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Image Source="/XamlBrewer.Wpf.WebScraping;component/Assets/BigLogo.png"
+                   Stretch="Uniform"
+                   Width="200"
+                   Grid.Row="2"
+                   HorizontalAlignment="Left"
+                   Margin="0 0 10 0" />
+        </Grid>
+        <WebBrowser x:Name="SourceBrowser"
+                    Margin="0 0 5 0"
+                    Navigated="Browser_OnLoadCompleted"
+                    Grid.Row="1"
+                    Grid.Column="1" />
+        <Grid Grid.Row="1"
+              Grid.Column="2"
+              Margin="5 0 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="ScriptText"
+                       Foreground="{StaticResource PrimaryHueDarkBrush}"
+                       FontWeight="SemiBold"
+                       TextWrapping="Wrap"
+                       Margin="0 0 0 5" />
+            <ScrollViewer Grid.Row="1">
+                <TextBlock x:Name="Text"
+                           Width="auto"
+                           TextWrapping="Wrap" />
+            </ScrollViewer>
+        </Grid>
+    </Grid>
 </Window>
