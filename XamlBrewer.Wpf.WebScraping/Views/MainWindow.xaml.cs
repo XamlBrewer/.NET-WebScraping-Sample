@@ -21,9 +21,9 @@ namespace XamlBrewer.Wpf.WebScraping
             this.Loaded += MainWindow_Loaded;
         }
 
-        public List<Source> Sources
+        public List<Page> Sources
         {
-            get { return Source.TestSources; }
+            get { return Page.TestSources; }
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -35,7 +35,13 @@ namespace XamlBrewer.Wpf.WebScraping
         {
             var browser = sender as WebBrowser;
 
-            if (browser?.Document == null) { return; }
+            if (browser == null || browser.Document == null)
+            {
+                return;
+            }
+
+            // .NET 4.5.2 Syntax
+            // if (browser?.Document == null) { return; }
             
             HideScriptErrors(browser, true);
         }
@@ -51,7 +57,7 @@ namespace XamlBrewer.Wpf.WebScraping
 
         private void SourcesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var source = SourcesList.SelectedItem as Source;
+            var source = SourcesList.SelectedItem as Page;
             this.UrlInput.Text = source.Url;
             this.ScriptInput.Text = source.Scripts;
 
@@ -96,7 +102,7 @@ namespace XamlBrewer.Wpf.WebScraping
             this.Cursor = Cursors.Wait;
 
             var xmlScripts = ScriptInput.Text;
-            var scripts = WebScraper.DeserializeScripts(xmlScripts);
+            var scripts = Script.DeserializeScripts(xmlScripts);
             this.ScriptText.Text = scripts.First().Documentation;
 
             var engine = new WebScraper();

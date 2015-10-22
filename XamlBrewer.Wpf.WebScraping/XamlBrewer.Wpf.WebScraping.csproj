@@ -67,10 +67,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\WebScraping\HtmlExtensions.cs" />
     <Compile Include="Services\WebScraping\Script.cs" />
     <Compile Include="Services\WebScraping\Step.cs" />
     <Compile Include="Services\WebScraping\WebScraper.cs" />
-    <Compile Include="ViewModels\Source.cs" />
+    <Compile Include="ViewModels\Page.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
