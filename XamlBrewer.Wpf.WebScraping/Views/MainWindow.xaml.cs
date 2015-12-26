@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -21,14 +23,11 @@ namespace XamlBrewer.Wpf.WebScraping
             this.Loaded += MainWindow_Loaded;
         }
 
-        public List<Page> Sources
-        {
-            get { return Page.TestSources; }
-        }
-
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            this.SourcesList.ItemsSource = this.Sources;
+            var pages = File.ReadAllText("App.config.pages.json");
+            var jsonPages = JsonConvert.DeserializeObject<IEnumerable<Page>>(pages);
+            this.SourcesList.ItemsSource = jsonPages;
         }
 
         void Browser_OnLoadCompleted(object sender, NavigationEventArgs e)
