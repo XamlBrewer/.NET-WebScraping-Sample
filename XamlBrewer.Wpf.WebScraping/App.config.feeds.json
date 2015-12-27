@@ -10,5 +10,25 @@
   {
     Name: "News Biscuit",
     Url: "http://www.newsbiscuit.com/feed/"
+  },
+  {
+    Name: "The Onion",
+    Url: "http://www.theonion.com/feeds/rss"
+  },
+  {
+    Name: "Clickhole",
+    Url: "http://www.clickhole.com/feeds/rss"
+  },
+  {
+    Name: "The Daily Currant",
+    Url: "http://dailycurrant.com/feed"
+  },
+  {
+    Name: "Andy Borowitz Report",
+    Url:  "http://www.newyorker.com/feed/humor/borowitz-report"
+  },
+  {
+    Name: "Faking News",
+    Url:  "http://feeds.feedburner.com/fakingnews"
   }
 ]
