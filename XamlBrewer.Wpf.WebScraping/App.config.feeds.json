@@ -1,6 +1,14 @@
 ﻿[
   {
-    Name: "",
-    Url: "http://www."
+    Name: "The Daily WTF",
+    Url: "http://syndication.thedailywtf.com/TheDailyWtf"
+  },
+  {
+    Name: "National Report",
+    Url: "http://feeds.feedburner.com/NationalReport"
+  },
+  {
+    Name: "News Biscuit",
+    Url: "http://www.newsbiscuit.com/feed/"
   }
 ]

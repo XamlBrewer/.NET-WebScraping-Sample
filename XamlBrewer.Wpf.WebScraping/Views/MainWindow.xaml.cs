@@ -1,12 +1,15 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.ServiceModel.Syndication;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using XamlBrewer.Services.Syndication;
 using XamlBrewer.Services.WebScraping;
 
 namespace XamlBrewer.Wpf.WebScraping
@@ -25,6 +28,10 @@ namespace XamlBrewer.Wpf.WebScraping
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            var feeds = File.ReadAllText("App.config.feeds.json");
+            var jsonFeeds = JsonConvert.DeserializeObject<IEnumerable<RssFeed>>(feeds);
+            this.FeedsList.ItemsSource = jsonFeeds;
+
             var pages = File.ReadAllText("App.config.pages.json");
             var jsonPages = JsonConvert.DeserializeObject<IEnumerable<Page>>(pages);
             this.SourcesList.ItemsSource = jsonPages;
@@ -118,6 +125,36 @@ namespace XamlBrewer.Wpf.WebScraping
                 catch (System.Exception ex)
                 {
                     this.SourceBrowser.NavigateToString(ex.Message);
+                }
+            }
+
+            this.Cursor = Cursors.Arrow;
+        }
+
+        private void FeedsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FeedItemsList.ItemsSource = null;
+
+            this.Cursor = Cursors.Wait;
+
+            var feed = FeedsList.SelectedItem as RssFeed;
+
+            using (var reader = new RssXmlReader(feed.Url))
+            {
+                try
+                {
+                    var list = new List<CleanedSyndicationItem>();
+                    var doc = SyndicationFeed.Load(reader);
+                    foreach (var item in doc.Items)
+                    {
+                        list.Add(new CleanedSyndicationItem(item));
+                    }
+
+                    FeedItemsList.ItemsSource = list;
+                }
+                catch (Exception ex)
+                {
+                    FeedItemsList.ItemsSource = new List<SyndicationItem>() { new SyndicationItem(ex.Message, null, null) };
                 }
             }
 
